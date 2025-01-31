@@ -1,0 +1,109 @@
+fichier zip avec nouvelle interface web pour affichage sur mobile sur serveur web ou interne . responsive pour mobile ou ordinateur 
+
+=== Site Web BellePoule - Journal des modifications ===
+
+Version 2.0.0 (2024)
+-------------------
+
+SÉCURITÉ
+- Ajout du support HTTPS avec redirection automatique
+- Ajout des headers de sécurité HSTS
+- Mise à jour des URLs pour être protocole-agnostiques
+- Protection contre les attaques XSS dans les formulaires
+
+INTERFACE
+- Nouvelle barre d'outils responsive avec icônes FontAwesome
+- Ajout d'une interface de sélection des compétitions modernisée
+- Support dynamique d'une image de bannière (banniere.png)
+- Amélioration du design responsive pour mobiles et tablettes
+
+FONCTIONNALITÉS
+- Ajout d'un classement général accessible depuis la barre d'outils
+- Le classement général affiche maintenant :
+  * Place
+  * Nation (avec drapeau)
+  * Nom complet du tireur
+  * Club
+  * Département 
+  * Région
+- Navigation par onglets dans les tableaux d'élimination
+- Redirection automatique vers la liste des tireurs après sélection d'une compétition
+- Meilleure gestion des erreurs et des cas limites
+
+PERFORMANCES
+- Optimisation du chargement des ressources
+- Amélioration du temps de réponse des tableaux
+- Mise en cache optimisée des données
+
+CORRECTIONS
+- Correction de l'affichage des drapeaux dans les classements
+- Amélioration de la gestion des caractères spéciaux
+- Correction des problèmes d'affichage sur Internet Explorer
+- Correction des problèmes de tri dans les classements
+
+TECHNIQUE
+- Refactorisation du code pour une meilleure maintenabilité
+- Amélioration de la structure des fichiers
+- Standardisation des noms de variables et des commentaires
+- Migration vers des URLs relatives pour supporter HTTPS
+
+Note: Cette version nécessite PHP 7.0 ou supérieur et un serveur web avec support SSL pour activer HTTPS.
+
+Version 2.0.1 (2024)
+-------------------
+
+INTERFACE
+- Ajout d'un bouton de rafraîchissement flottant rouge avec animation
+- Le bouton est centré en bas de chaque page (sauf menu principal)
+- Animation de rotation pendant le rafraîchissement
+- Correction majeure de l'affichage des tableaux éliminatoires :
+  * Meilleure gestion de l'espace d'affichage
+  * Correction des problèmes de superposition des lignes
+  * Amélioration de la lisibilité des noms des tireurs
+  * Correction de l'alignement des scores
+  * Support correct des grands tableaux (256+)
+## Journal des modifications
+
+### Version 2.0.2 (2024)
+
+#### Interface utilisateur
+- Ajout d'une barre d'outils fixe en haut de l'écran
+- Ajout d'un bandeau d'informations sur la compétition
+- Ajout d'un bouton de rafraîchissement flottant
+- Implémentation d'onglets pour la navigation entre les tableaux
+
+#### Responsive Design
+- Optimisation de l'affichage pour les appareils mobiles
+- Support spécifique pour les modes portrait et paysage
+- Ajustement automatique des tailles de texte et espacements
+- Meilleure gestion de l'espace sur petits écrans
+
+#### Fonctionnalités
+- Défilement automatique du bandeau d'informations quand le contenu dépasse
+- Animation du bouton de rafraîchissement
+- Sauvegarde du niveau de zoom entre les pages
+- Meilleure gestion des URLs relatives
+
+#### Corrections et améliorations
+- Correction de la superposition du bandeau d'information en mode portrait
+- Optimisation des performances sur mobile
+- Amélioration de la lisibilité des tableaux sur petit écran
+- Correction des marges et espacements pour éviter les chevauchements
+
+#### Accessibilité
+- Amélioration du contraste des couleurs
+- Ajout d'icônes pour une meilleure compréhension
+- Textes redimensionnables
+- Support tactile optimisé
+
+#### Navigation
+- Nouveau menu de navigation principal
+- Accès rapide aux différentes sections
+- Indication visuelle de la page active
+- Retour facile à la page d'accueil
+
+#### Optimisations techniques
+- Refactorisation du code CSS
+- Organisation en variables CSS pour une maintenance facilitée
+- Amélioration de la gestion des événements JavaScript
+- Support du mode sombre du système

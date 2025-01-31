@@ -1,0 +1,1605 @@
+/* Variables globales - Configuration des couleurs et dimensions principales */
+:root {
+    /* Configuration des traits et bordures */
+    --couleur-trait-poule: #000;        /* Couleur des bordures des poules */
+    --epaisseur-poule: 2px;             /* Épaisseur des bordures des poules */
+    --epaisseur: 1.7px;                 /* Épaisseur générale des traits */
+    --couleur-trait: #000;              /* Couleur générale des traits */
+    --epaisseur-fin: 0;                 /* Épaisseur des traits fins */
+    --couleur-trait-fin: #000;          /* Couleur des traits fins */
+
+    /* Configuration des tableaux et cases */
+    --tableau-height: 0;                 /* Hauteur de base des tableaux */
+    --couleur-case: #FAF9E5;            /* Couleur de fond des cases */
+    --couleur-case-titre: #FBFAEA;      /* Couleur de fond des titres */
+    --couleur-case-doc: #FBFAEA;        /* Couleur de fond des documents */
+    
+    /* Configuration des scores et textes */
+    --couleur-score: #286E7C;           /* Couleur des scores */
+    --font-size-score: 15px;            /* Taille de police des scores */
+    --font-size-arbitre: 13px;          /* Taille de police des arbitres */
+    
+    /* Configuration des titres */
+    --couleur-titre: #CD0034;           /* Couleur des titres principaux */
+    --couleur-titre-comp: #273973;      /* Couleur des titres de compétition */
+    
+    /* Configuration des layouts */
+    --fixed-head-height-margin: 1.7em;   /* Marge des en-têtes fixes */
+    --shift_finalist: 10px;              /* Décalage pour les finalistes */
+    --banner-bg-color: linear-gradient(135deg, #050c13 20%, #161718 100%); /* Fond bannière par défaut */
+}
+
+/* Reset et styles de base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #031738 100%);
+    margin-top: 60px;
+    min-height: 100vh;
+    color: #000;
+}
+
+/* Layout Components */
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Ajuster le padding-top pour tenir compte des deux barres fixes */
+    padding-top: 130px; /* 60px (toolbar) + 50px (competition-info) + 20px (espace) */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Toolbar Components */
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #032c55;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1001; /* Augmenter pour être sûr qu'elle reste au-dessus */
+    height: 60px; /* Hauteur fixe pour la barre d'outils */
+}
+
+.toolbar-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background-color: #074f58;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-size: 14px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.toolbar-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.toolbar-button.home {
+    background-color: #e74c3c;
+}
+
+.toolbar-button.active {
+    background-color: #27ae60;
+    pointer-events: none;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.font-bold { font-weight: bold; }
+.font-normal { font-weight: normal; }
+
+/* Table Components */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+/* Poule Components */
+.poule {
+    display: inline-block;
+    margin: calc(10px * var(--rescale));
+    background: var(--couleur-case);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .toolbar {
+        padding: 5px;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        min-height: 60px;
+    }
+
+    .toolbar-button {
+        min-width: auto;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .content-wrapper {
+        padding: 70px 10px 20px;
+        margin-top: 0;
+        padding-top: 10px;
+    }
+
+    .competition-info {
+        top: auto; /* Annuler la position fixed sur mobile */
+        position: sticky; /* Utiliser sticky au lieu de fixed */
+        margin-top: 60px;
+    }
+
+    .competition-info-content {
+        padding: 5px 0;
+        gap: 15px;
+    }
+
+    .info-item {
+        font-size: 12px;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar-button span {
+        display: none;
+    }
+
+    .toolbar-button {
+        padding: 8px;
+    }
+
+    .toolbar-button i {
+        font-size: 20px;
+        margin: 0;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .toolbar {
+        display: none;
+    }
+    
+    body {
+        margin: 0;
+        background: none;
+    }
+    
+    .content-wrapper {
+        padding: 0;
+    }
+}
+
+/* Styles existants */
+.home
+{
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-weight: bold;
+    font-size : 4vw;
+}
+.zoom
+{
+    width:  80vw;
+    height: 5vw;    
+}
+
+.buttonicon_dis,
+.buttonicon
+{
+    padding:0px;
+    width:  8vw;
+    height: 8vw;
+    border-radius: 0.7vw;
+    font-size : 6vw;
+    vertical-align: middle;
+    margin:0.5vw;
+}
+
+.buttonicon_dis
+{
+    color:#AAA;
+}
+.buttoniconi_dis
+{
+    background:#00917B;
+}
+
+
+.autohide
+{
+    visibility: hidden;
+    border-radius: 1vw;
+    padding : 1vw;
+    border : solid 0.5vw #00917B;
+    background: #42FEDC;
+    position:absolute;
+    top:15vw;
+    left:4      vw;
+    right-margin:6vw;
+    z-index: 10;
+ //   background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+}
+
+
+/***********************
+   CLASSEMENT COMBINE
+ ***********************/
+.tblhd_multicol
+{
+    margin-left:0.3vw;
+    margin-right:0.6vw;
+    display: inline-block;
+    position: relative;
+    border: 2px solid black;
+    background:#CCC;
+    padding: calc(15px * var(--rescale));
+    font-size: calc(13px * var(--rescale));
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+//    font-weight: bold; 
+}
+
+.tblhdpou
+{
+    display: inline-block;
+    position: relative;
+    font-size:calc(12px * var(--rescale) );
+}
+
+.tblhd
+{
+    display: inline-block;
+    position: relative;
+    font-size:calc(12px * var(--rescale) );
+}
+.tblhd_tab
+{
+    display: inline-block;
+    position: relative;
+    font-size:calc(12px * var(--rescale) );
+}
+
+.tbl_banner
+{
+    height:4vh;
+    font-size : 3vh;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+}
+
+.tblhdpou > div
+{
+//    height: calc(22px * var(--rescale));
+    background:#CCC;
+//    height: calc( var(--fixed-head-height-margin) + 1em );
+//    padding-top: calc( 5px * var(--rescale));
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-weight: bold; 
+    text-align: center;
+}
+
+.tblhd > div
+{
+    height: calc(22px * var(--rescale));
+    background:#CCC;
+//    height: calc( var(--fixed-head-height-margin) + 1em );
+//    padding-top: calc( 5px * var(--rescale));
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-weight: bold; 
+    text-align: center;
+}
+.tblhd_tab > div
+{
+    height: calc(12px + 48px * var(--rescale));
+    background:#CCC;
+//    height: calc( var(--fixed-head-height-margin) + 1em );
+//    padding-top: calc( 5px * var(--rescale));
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-weight: bold; 
+    text-align: center;
+}
+
+.tblhead
+{
+    font-weight: bold; 
+    position: absolute;
+    top:0.3em;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    margin-left:  calc(-10px * var(--rescale));
+    padding-left: calc(  3px * var(--rescale));
+    font-size:calc(10px * var(--rescale) );
+//    border-left : 0.5px solid black;
+//    background:red;
+}
+
+
+.tblhead_tab
+{
+    font-weight: bold; 
+    position: absolute;
+    top:0.3em;
+    font-family: "Arial Black", Arial, sans-serif;  
+//    background:cyan;
+        font-size : calc(6px  + 28px * var(--rescale));
+}
+
+div.listePoules
+{
+        background:none;
+}
+table.listeTireur td,
+table.listeTireur th
+{
+    padding-left:calc(8px * var(--rescale));
+    padding-right:calc(8px * var(--rescale));
+}
+
+table.listeTireur th
+{
+    font-weight: normal;
+}
+
+.VR
+{
+    border-right: 0.5px solid black;
+}
+
+table.listeTireur td.B
+{
+    font-weight : bold;
+    font-family: "Arial ", Arial, sans-serif;
+}
+
+table.listeTireur tr.impairQ td
+{
+	background-color : #BBFFBB;
+}
+
+table.listeTireur tr.pairQ td
+{
+	background-color : #DDFFDD;
+}
+
+table.listeTireur tr.impairOL td,
+table.listeTireur tr.impairO td
+{
+	background-color : #FFBBBB;
+}
+
+table.listeTireur tr.pairOL td,
+table.listeTireur tr.pairO td
+{
+	background-color : #FFDDDD;
+}
+
+table.listeTireur tr.impairQL td
+{
+	background-color : #EEE;
+}
+table.listeTireur tr.pairQL td
+{
+	background-color : #BBB;
+}
+
+table.listeTireur tr.impairQC td
+{
+	background-color :  #BBFFBB;;
+}
+table.listeTireur tr.pairQC td
+{
+	background-color : #DDFFDD;
+}
+
+table.listeTireur tr.impairOC td
+{
+	background-color :  #EEE;
+}
+table.listeTireur tr.pairOC td
+{
+	background-color : #BBB;
+}
+
+
+table.listeTireur tr.pairE td,
+table.listeTireur tr.impairE td
+{
+	background-color : #888888;
+}
+
+table.listeTireur th.MID,
+table.listeTireur td.MID 
+{
+    text-align:center;
+}
+
+.fh
+{
+    height: calc(94vh - var(--fixed-head-height-margin));
+    display: block;
+    overflow-y: auto;
+}
+
+.fhtab
+{
+    height: calc(90vh - var(--fixed-head-height-margin));
+    display: block;
+    overflow-y: auto;
+}
+
+.fhpou
+{
+    height: calc(94vh - var(--fixed-head-height-margin));
+    overflow-y: auto;
+}
+
+
+table.listeTireur td.RIG 
+{
+    text-align:right;
+}
+table.listeTireur td.LEF 
+{
+    text-align:left;
+}
+table.listeTireur tr
+{
+    page-break-inside:avoid !important;    
+}
+table.listeTireur 
+{
+    font-family: "Arial Narrow", Arial, sans-serif;
+     border-collapse: collapse;
+}
+
+@media screen
+{
+    table.listeTireur 
+    {
+     height: calc(94vh - var(--fixed-head-height-margin));  
+    }
+}
+
+
+
+h1 {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-size: 15px; 
+    font-weight: bold; 
+    text-align: center;
+    color:var(--couleur-titre);
+}
+h2 {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-size: 12px; 
+    font-weight: bold; 
+    color:var(--couleur-titre-comp);
+}
+
+/*
+    UTILISE
+*/
+
+.lespoules
+{
+}
+.poule_div
+{
+    padding-top:calc(10px * var(--rescale));
+    display: inline-block;
+    position: relative;
+    margin-right:calc(1vw * var(--rescale));
+}
+.poule_tab
+{
+    font-family: "Arial Narrow", Arial, sans-serif;
+        box-shadow: 3px 3px 3px #CCC;
+}
+
+.poule_res
+{
+    background: var(--couleur-case-titre);
+    padding-left : 5px;
+    padding-right : 5px;
+    font-size:calc(14px * var(--rescale));
+}
+.poule_arb 
+{
+    font-family: "Arial", Arial, sans-serif;
+    font-size:calc(14px * var(--rescale));
+    font-weight:normal;
+}
+.poule_doc
+{
+    font-family: "Arial Black", Arial, sans-serif;
+    background:var(--couleur-case-doc);
+    font-size:calc(20px * var(--rescale));
+    font-weight:bold;
+    padding:2px;
+    padding-right:5px;
+    padding-left:5px;
+    border-top:     calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-bottom:  calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-right:    calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-left:    calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+}
+
+.poule_not,
+.poule_tit
+{
+ background:var(--couleur-case-titre);
+    border-top:     calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-right:    calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);    
+}
+.poule_nom,
+.poule_sco,
+.poule_nor,
+.poule_not,
+.poule_dia
+{
+//    height:30px;
+    font-size:calc(20px * var(--rescale));
+}
+
+.poule_nom
+{
+    background:var(--couleur-case);
+    font-weight:bold;
+//    padding:5px;
+    padding-right:calc(3px * var(--rescale));
+    padding-left:calc(3px * var(--rescale));
+//    width:310px;
+    padding-top:0px;
+    padding-bottom:0px;
+    //6px;
+    border-left:    calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+}
+
+.poule_tit
+{
+    font-size:calc(16px * var(--rescale));
+    text-align:center;
+    font-weight:bold;
+    vertical-align: bottom;
+}
+
+.poule_not,
+.poule_nor
+{
+    font-size:calc(12px * var(--rescale));
+}
+
+.poule_nor
+{
+    background:var(--couleur-case); 
+    padding-right:5px;
+}
+
+
+.poule_nom,
+.poule_sco,
+.poule_nor,
+.poule_res,
+.poule_dia
+{
+    border-top:     calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-bottom:  calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+}
+
+.poule_not
+{
+    vertical-align: bottom;
+    text-align:center;
+}
+
+.poule_tit,
+.poule_sco,
+.poule_dia
+{
+    width:calc(20px * var(--rescale));
+}
+
+
+.poule_res,
+.poule_sco,
+.poule_dia
+{
+    border-top:     calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-bottom:  calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-right:   calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    border-left:    calc(var(--epaisseur-poule) * var(--rescale)) solid var(--couleur-trait-poule);
+    text-align:center;
+}
+
+.poule_dia
+{
+    -webkit-print-color-adjust: exact;
+    background : #666;
+}
+
+.poule_sco
+{
+    background : var(--couleur-case);
+}
+
+
+.myTableau
+{
+    border-collapse: collapse; //collapse;
+    font-family: "Arial", Arial, sans-serif;
+    padding:0;
+    margin:0;
+}
+ 
+
+.myTableau td
+{
+        padding-top:0;
+        padding-bottom:0; 
+}
+.Tableau_net,
+.Tableau_neb,
+.Tableau_wet,
+.Tableau_web
+{
+// margin-top:3px;   
+ height: 2px;
+}
+
+/*.Tableau_TXX
+{
+    font-size:calc(15px * var(--rescale));
+    font-family: "Arial", Arial, sans-serif;
+}*/
+
+.Tableau_neb_flip,
+.Tableau_neb
+{
+    min-width: calc(10px * var(--rescale));
+    //    background : #FFA;
+}
+
+.Tableau_net,
+.Tableau_net_flip
+{
+     min-width: calc(10px * var(--rescale));
+    //    background : #FAF;
+}
+
+.Tableau_nem,
+.Tableau_nem
+{
+    //    background : #AFF;
+}
+
+
+.Tableau_nrt
+{
+    //    background : #A00;
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nrt_flip
+{
+    //    background : #A00;
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nrb
+{
+    //    background : #0A0;
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nrb_flip
+{
+    //    background : #0A0;
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nvb
+{
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+.Tableau_nvb_flip
+{
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nvt
+{
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nvt_flip
+{
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_wto_lef
+{
+    background: var(--couleur-case);
+    //    background : #CDF;
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+    border-left: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+.Tableau_wto_final,
+.Tableau_wto_lef_final
+{
+    transform: translate(calc(var(--shift_finalist) * var(--rescale)));
+    background: var(--couleur-case);
+        background : #CDF;
+        text-align:center;
+/*    border-top:    calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left:   calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait); */
+}
+
+.Tableau_wto_lef_flip
+{
+    text-align: right;
+    background: var(--couleur-case);
+    //    background : #CDF;
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+}
+
+.Tableau_wto
+{
+    min-width:calc (20px * var(--rescale));
+    background: var(--couleur-case);
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_wto_flip
+{
+    min-width:calc (20px * var(--rescale));
+    background: var(--couleur-case);
+    border-top: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.avec_rang
+{
+   // width:380px;
+}
+.sans_rang
+{
+ //   width:320px;
+}   
+
+.gros,
+.gros20,
+.gros30,
+.gros40
+{
+    
+    font-family: "Arial Black", Arial, sans-serif;
+        font-weight:bold;
+}
+
+.gros_nobold
+{
+    font-family: "Arial Narrow", Arial, sans-serif;
+     //   font-weight:bold;
+}
+.gros
+{
+    font-size:calc(4px + 16px * var(--rescale));
+}
+.gros20
+{
+    font-size:calc(4px + 16px * var(--rescale)); //13
+}
+
+.gros30
+{
+    font-size:calc(3px + 14px * var(--rescale)); //12
+}
+.gros40
+{
+    font-size:calc(3px + 13px * var(--rescale)); //11
+}
+
+.score
+{
+    font-family: "Arial Black", Arial, sans-serif;
+    font-weight:bold;
+    color : var(--couleur-score);
+    font-size:calc(4px + var(--font-size-score) * var(--rescale));
+    text-align:center;
+}
+
+.date,
+.piste
+{
+     font-family: "Arial Black", Arial, sans-serif;
+    font-weight:bold;   color : var(--couleur-score);
+    font-size:calc(4px + var(--font-size-score) * var(--rescale));
+    text-align:center;
+}
+
+.Tableau_wmi_lef
+{
+    min-width : calc(100px * var(--rescale));
+    font-size:calc(var(--font-size-arbitre) * var(--rescale));
+    color : var(--couleur-score);
+    text-align:right;
+    background: var(--couleur-case);
+    border-right: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+    border-left: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+.Tableau_wmi_lef_flip
+{
+    font-size:calc(var(--font-size-arbitre) * var(--rescale));
+    color : var(--couleur-score);
+    text-align:left;
+    background: var(--couleur-case);
+    border-right: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+}
+
+.Tableau_wmi
+{
+    text-align:center;
+    background: var(--couleur-case);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+.Tableau_wmi_flip
+{
+    text-align:center;
+    background: var(--couleur-case);
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+
+.Tableau_wbo_lef
+{
+    background: var(--couleur-case);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+    border-left: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_wbo_lef_flip
+{
+    text-align:right;
+    background: var(--couleur-case);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left: var(--epaisseur-fin) solid var(--couleur-trait-fin);
+}
+.Tableau_wbo_flip_final,
+.Tableau_wbo_lef_flip_final
+{
+    transform: translate(calc(-1*var(--shift_finalist) * var(--rescale)));
+
+    text-align:center;
+    background: var(--couleur-case);
+    background : #CDF;;
+    border:none;
+/*    border-top:    calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left:   calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+*/
+}
+
+.Tableau_wbo
+{
+    background: var(--couleur-case);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_wbo_flip
+{
+    text-align:right;
+    background: var(--couleur-case);
+    border-bottom: calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    border-left:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+}
+
+.Tableau_nul
+    {
+	border-right:  calc(var(--epaisseur) * var(--rescale)) solid var(--couleur-trait);
+    }
+
+    .Tableau_sep{
+        min-width:  calc( 10px *  var(--rescale));
+    }
+    
+    .Tableau_wbo_lef,
+    .Tableau_wmi_lef,
+    .Tableau_wto_lef
+    {
+
+           padding-left:calc(2px * var(--rescale));
+    }
+
+    .slider-zoom
+    {
+        margin-top:5vh;
+        margin-left:5vh;
+        margin-right:5vh;
+    }
+    .slider-tableau
+    {
+        margin-top:5vh;
+        margin-left:5vh;
+        margin-right:5vh;
+        margin-bottom:8vh;
+    }
+
+/* Nouvelle barre d'outils */
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1001; /* Augmenter pour être sûr qu'elle reste au-dessus */
+    height: 60px; /* Hauteur fixe pour la barre d'outils */
+}
+
+.toolbar-button {
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.toolbar-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+}
+
+.toolbar-button.home {
+    background-color: #e74c3c;
+}
+
+.toolbar-button.home:hover {
+    background-color: #c0392b;
+}
+
+.toolbar-button.active {
+    background-color: #27ae60;
+    pointer-events: none;
+}
+
+/* Ajustement du contenu pour la barre fixe */
+.content-wrapper {
+    padding: 80px 20px 20px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 110px; /* Total des hauteurs des deux barres */
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Barre d'outils améliorée */
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2c3e50;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1001; /* Augmenter pour être sûr qu'elle reste au-dessus */
+    height: 60px; /* Hauteur fixe pour la barre d'outils */
+}
+
+.toolbar-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    min-width: 100px;
+}
+
+.toolbar-button i {
+    font-size: 16px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .toolbar {
+        padding: 5px;
+        gap: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        min-height: 60px;
+    }
+
+    .toolbar-button {
+        min-width: auto;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .content-wrapper {
+        padding: 70px 10px 20px 10px;
+        margin-top: 0;
+        padding-top: 10px;
+    }
+
+    .competition-info {
+        top: auto; /* Annuler la position fixed sur mobile */
+        position: sticky; /* Utiliser sticky au lieu de fixed */
+        margin-top: 60px;
+    }
+
+    .competition-info-content {
+        padding: 5px 0;
+        gap: 15px;
+    }
+
+    .info-item {
+        font-size: 12px;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
+
+/* Styles pour les onglets des tableaux */
+.tableaux-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tableau-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.tableau-tab:hover {
+    background: #dee2e6;
+    transform: translateY(-2px);
+}
+
+.tableau-tab.active {
+    background: #074f58;
+    color: white;
+}
+
+.tableau-tab i {
+    font-size: 14px;
+}
+
+/* Responsive design pour les onglets */
+@media (max-width: 768px) {
+    .tableaux-tabs {
+        padding: 5px;
+    }
+    
+    .tableau-tab {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Styles pour les informations de la compétition */
+.competition-info {
+    position: fixed; /* Reste toujours fixe */
+    top: 60px; /* Se positionne sous la toolbar */
+    left: 0;
+    right: 0;
+    background: #032c55;
+    padding: 12px 20px;
+    border-bottom: 2px solid #074f58;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+    min-height: 50px;
+    height: auto;
+    color: #fff;
+    overflow: hidden; /* Assure que le contenu ne déborde pas */
+}
+
+.competition-info-content {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche le retour à la ligne */
+    gap: 15px;
+    justify-content: flex-start; /* Aligne à gauche */
+    align-items: center;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 10px 0; /* Ajout d'un peu de padding vertical */
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    animation: scrollText 20s linear infinite;
+    animation-play-state: paused; /* L'animation est en pause par défaut */
+}
+
+/* Animation de défilement */
+@keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 20px)); } /* -20px pour le gap */
+}
+
+/* Quand le contenu dépasse, active l'animation */
+.competition-info-content:hover {
+    animation-play-state: running;
+}
+
+/* Double le contenu quand il dépasse */
+.competition-info-content.overflow {
+    animation-play-state: running;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff; /* Texte en blanc */
+    font-size: 14px;
+    font-weight: 500;
+    flex-shrink: 0; /* Empêche la compression des éléments */
+    min-width: fit-content; /* Assure que le texte ne soit pas coupé */
+}
+
+.info-item i {
+    color: #66b3ff; /* Icônes en bleu clair pour meilleur contraste sur fond foncé */
+    width: 16px;
+    font-size: 16px;
+}
+
+/* Styles spécifiques pour la page liste */
+.competition-info .competition-title {
+    font-size: 16px;
+    font-weight: bold;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Ajustements responsive */
+@media (max-width: 768px) {
+    .competition-info .competition-title {
+        font-size: 14px;
+        order: -1;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+/* Responsive design pour les informations */
+@media (max-width: 768px) {
+    .competition-info {
+        padding: 10px;
+        top: auto; /* Annuler la position fixed sur mobile */
+        position: sticky; /* Utiliser sticky au lieu de fixed */
+        margin-top: 60px;
+    }
+    
+    .competition-info-content {
+        gap: 15px;
+        justify-content: flex-start;
+        padding: 5px 0;
+    }
+    
+    .info-item {
+        font-size: 13px;
+        padding: 4px 8px;
+        white-space: nowrap;
+    }
+}
+
+/* Ajustements pour les écrans mobiles */
+@media (max-width: 768px) {
+    .toolbar {
+        height: auto;
+        min-height: 60px;
+    }
+
+    .competition-info {
+        position: fixed; /* Garde la position fixe */
+        top: 60px; /* Reste aligné sous la toolbar */
+    }
+
+    .competition-info-content {
+        flex-direction: row; /* Garde l'affichage horizontal */
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 4px 0;
+    }
+
+    .info-item {
+        white-space: nowrap; /* Empêche le retour à la ligne du texte */
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .content-wrapper {
+        margin-top: 130px; /* Ajusté pour tenir compte des deux barres fixes */
+        padding-top: 10px;
+    }
+}
+
+/* Ajustements spécifiques pour le mode paysage */
+@media (max-width: 768px) and (orientation: landscape) {
+    .content-wrapper {
+        padding-top: 120px; /* Ajusté pour le mode paysage */
+    }
+}
+
+/* Styles pour le bouton de rafraîchissement */
+.refresh-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.refresh-button:hover {
+    background-color: #c0392b;
+    transform: translateX(-50%) scale(1.1);
+}
+
+.refresh-button i {
+    transition: transform 0.3s ease;
+}
+
+.refresh-button:hover i {
+    transform: rotate(180deg);
+}
+
+@keyframes spinning {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.spinning {
+    animation: spinning 1s linear infinite;
+}
+
+/* Ajustement pour le mode mobile */
+@media (max-width: 768px) {
+    .refresh-button {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 15px;
+    }
+}
+
+/* Ajustement pour l'impression */
+@media print {
+    .refresh-button {
+        display: none;
+    }
+}
+
+/* Ajustements spécifiques pour le mode portrait sur mobile */
+@media screen and (max-width: 420px) and (orientation: portrait) {
+    .content-wrapper {
+        margin-top: 100px; /* Augmenté pour laisser plus d'espace */
+        padding-top: 75px; /* Plus d'espace en haut */
+    }
+
+    /* Ajustement des listes */
+    table.listeTireur {
+        margin-top: 5px;
+    }
+
+    /* Ajustement du bandeau d'information */
+    .competition-info {
+        position: fixed;
+        top: 60px;
+        min-height: 90px; /* Hauteur minimale augmentée */
+        height: auto;
+        padding: 10px;
+    }
+
+    .competition-info-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .info-item {
+        width: 20%;
+        justify-content: flex-start;
+        padding: 2px 0;
+    }
+
+    /* Ajustement pour les tables de classement */
+    .fh, .fhtab, .fhpou {
+        height: calc(80vh - var(--fixed-head-height-margin)); /* Réduire la hauteur pour éviter le débordement */
+        margin-top: 20px; /* Ajouter de l'espace au-dessus des tableaux */
+    }
+
+    /* Ajuster la taille des cellules pour une meilleure lisibilité */
+    table.listeTireur td,
+    table.listeTireur th {
+        padding: 8px 4px;
+        font-size: 14px;
+    }
+
+    /* Assurer que le contenu défile correctement */
+    .content-wrapper {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Ajustements spécifiques pour le mode portrait sur mobile */
+@media screen and (max-width: 420px) and (orientation: portrait) {
+    .competition-info {
+        position: fixed;
+        top: 60px;
+        height: auto;
+        min-height: 40px;
+        padding: 2px 5px; /* Réduit le padding */
+    }
+
+    .competition-info-content {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px; /* Réduit l'espace entre les éléments */
+        padding: 2px 0; /* Réduit le padding vertical */
+        height: 100%;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .info-item {
+        display: inline-flex;
+        align-items: center;
+        flex: 0 0 auto;
+        font-size: 12px;
+        padding: 2px;
+        margin-right: 4px; /* Réduit la marge entre les items */
+        white-space: nowrap;
+        gap: 4px; /* Réduit l'espace entre l'icône et le texte */
+    }
+
+    .info-item i {
+        font-size: 14px; /* Légèrement plus petit que la version desktop */
+        width: 14px;
+    }
+
+    .info-item:last-child {
+        margin-right: 4px;
+        padding-right: 4px;
+    }
+
+    /* Ajuster l'espacement du content pour éviter la superposition */
+    .content-wrapper {
+        margin-top: 190px; /* toolbar (60px) + info-banner (40px) + marge (10px) */
+        padding-top: 10px;
+    }
+}
+
+/* Styles pour les informations de la compétition */
+.competition-info {
+    position: fixed;
+    top: 60px; /* Colle directement sous la toolbar */
+    left: 0;
+    right: 0;
+    background: #032c55;
+    padding: 0; /* Supprime le padding vertical */
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 2px solid #074f58;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 1000;
+    height: auto;
+    color: #fff;
+}
+
+.competition-info-content {
+    display: flex;
+    flex-wrap: nowrap; /* Empêche le retour à la ligne */
+    gap: 15px;
+    justify-content: flex-start; /* Aligne à gauche */
+    align-items: center;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 10px 0; /* Ajout d'un peu de padding vertical */
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    animation: scrollText 20s linear infinite;
+    animation-play-state: paused; /* L'animation est en pause par défaut */
+}
+
+/* Animation de défilement */
+@keyframes scrollText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 20px)); } /* -20px pour le gap */
+}
+
+/* Quand le contenu dépasse, active l'animation */
+.competition-info-content:hover {
+    animation-play-state: running;
+}
+
+/* Double le contenu quand il dépasse */
+.competition-info-content.overflow {
+    animation-play-state: running;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff; /* Texte en blanc */
+    font-size: 14px;
+    font-weight: 500;
+    flex-shrink: 0; /* Empêche la compression des éléments */
+    min-width: fit-content; /* Assure que le texte ne soit pas coupé */
+}
+
+.info-item i {
+    color: #66b3ff; /* Icônes en bleu clair pour meilleur contraste sur fond foncé */
+    width: 16px;
+    font-size: 16px;
+}
+
+/* Ajustements pour les écrans mobiles */
+@media (max-width: 768px) {
+    .competition-info {
+        position: fixed;
+        top: 60px;
+        padding: 0 10px;
+    }
+
+    .competition-info-content {
+        flex-wrap: nowrap;
+        gap: 10px;
+        padding: 8px 0;
+    }
+
+    .info-item {
+        white-space: nowrap;
+        font-size: 12px;
+        flex-shrink: 0; /* Empêche la réduction des items */
+    }
+}
+
+/* Ajustements spécifiques pour le mode portrait sur mobile */
+@media screen and (max-width: 420px) and (orientation: portrait) {
+    .competition-info {
+        position: fixed;
+        top: 60px; /* Coller au toolbar */
+        height: auto;
+        min-height: 40px;
+        padding: 5px 10px;
+    }
+
+    .competition-info-content {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 0;
+        height: 100%;
+        width: auto;
+        white-space: nowrap;
+    }
+
+    .info-item {
+        display: inline-flex;
+        align-items: center;
+        flex: 0 0 auto;
+        font-size: 12px;
+        padding: 2px 5px;
+        margin-right: 10px;
+        white-space: nowrap;
+    }
+
+    .info-item:last-child {
+        margin-right: 0;
+        padding-right: 10px;
+    }
+
+    /* Ajuster l'espacement du content pour éviter la superposition */
+    .content-wrapper {
+        margin-top: 190px; /* toolbar (60px) + info-banner (40px) + marge (10px) */
+        padding-top: 10px;
+    }
+}
